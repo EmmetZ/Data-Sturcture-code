@@ -1,3 +1,3 @@
-## this is a first file of EmmetZ
+## The code of cs2501
 
-test-1 
+slinklist.h and seqlist.h are not completed 
