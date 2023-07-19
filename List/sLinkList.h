@@ -3,6 +3,8 @@
 
 #include "abstract.h"
 #include<iostream>
+using namespace std;
+
 
 template<class elemType>
 class sLinkList: public list<elemType>
@@ -38,7 +40,96 @@ public:
 };
 
 
+template<class elemType>
+typename sLinkList<elemType>::node *sLinkList<elemType>::move(int i) const
+{
+    node *p = head;
+    while(i-->=0) p = p->next;
+    return p;
+}
 
+
+template<class elemType>
+sLinkList<elemType>::sLinkList()
+{
+    head = new node;
+    currentLength = 0;
+}
+
+
+template<class elemType>
+void sLinkList<elemType>::clear()
+{
+    node *p = head->next, *q;
+    head->next = NULL;
+    while (p!=NULL)
+    {
+        q = p->next;
+        delete p;
+        p = q;
+    }
+    currentLength = 0;
+}
+
+
+template<class elemType>
+void sLinkList<elemType>::insert(int i, const elemType &x)
+{
+    node *pos;
+
+    pos = move(i-1);
+    pos->next = new node(x, pos->next);
+    ++currentLength;
+}
+
+
+template<class elemType>
+void sLinkList<elemType>::remove(int i)
+{
+    node *pos, *delp;
+    
+    pos = move(i-1);
+    delp = pos->next;
+    pos->next = delp->next; //绕过delp
+    delete delp;
+    --currentLength;
+}
+
+
+template<class elemType>
+int sLinkList<elemType>::search(const elemType &x) const
+{
+    node *p = head->next;
+    int i = 0;
+
+    while (p!=NULL && p->data!=x)
+    {
+        p = p->next;
+    }
+    if(p == NULL) return -1;
+    else return i;
+}
+
+
+template<class elemType>
+elemType sLinkList<elemType>::visit(int i) const
+{
+    return move(i)->data;
+}
+
+
+template<class elemType>
+void sLinkList<elemType>::traverse() const
+{
+    node *p = head->next;
+    cout<<endl;
+    while (p!=NULL)
+    {
+        cout<<p->data<<" ";
+        p = p->next;
+    }
+    cout<<endl;
+}
 
 
 #endif //SLINKLIST_INCLUDED
