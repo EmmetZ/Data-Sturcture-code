@@ -1,3 +1,3 @@
 ## The code of cs2501
 
-slinklist.h and seqlist.h are not completed 
+完成啦，基本代码
